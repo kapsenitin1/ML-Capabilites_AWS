@@ -1,0 +1,21 @@
+gender,hypertension,heart_disease,smoking_history,hbA1c_level,pregnancies,glucose,blood_pressure,skin_thickness,insulin,bmi,diabetes_pedigree_function,age,is_diabetic
+"Male",1,0,"Current smoker",5.7,0,110,80,32,15.0,28.0,0.6,45,1
+"Female",0,1,"Former smoker",6.1,1,150,90,20,20.5,31.2,0.7,52,1
+"Female",1,1,"Never smoked",5.8,2,130,85,22,10.8,25.5,0.8,47,0
+"Male",0,0,"Current smoker",6.3,0,180,100,25,12.4,29.1,0.9,60,1
+"Female",1,0,"Former smoker",5.9,3,140,75,18,14.3,26.4,0.6,39,1
+"Male",0,0,"Never smoked",5.5,0,115,70,20,18.2,27.3,0.5,42,0
+"Male",1,1,"Current smoker",6.0,0,160,95,30,15.1,30.5,0.7,54,1
+"Female",0,1,"Former smoker",5.6,4,135,78,23,16.7,28.6,0.6,37,0
+"Female",1,0,"Never smoked",5.4,0,125,82,28,19.5,27.8,0.8,40,0
+"Male",0,0,"Current smoker",6.2,1,145,89,21,13.6,29.9,0.7,51,1
+"Female",1,1,"Former smoker",6.3,2,175,100,26,17.0,32.1,0.5,49,1
+"Male",0,0,"Never smoked",5.7,0,120,76,24,18.9,26.0,0.8,43,0
+"Male",1,1,"Current smoker",6.4,1,160,92,27,14.8,31.7,0.9,55,1
+"Female",0,0,"Former smoker",5.8,3,130,85,19,15.3,25.2,0.6,35,0
+"Female",1,1,"Never smoked",6.0,2,145,87,22,10.7,30.3,0.5,41,1
+"Male",0,0,"Current smoker",6.1,0,155,93,25,13.1,29.5,0.7,48,1
+"Female",1,1,"Former smoker",5.9,4,135,79,28,19.4,27.1,0.8,36,0
+"Male",0,1,"Never smoked",6.2,1,140,90,23,18.8,28.4,0.6,50,1
+"Female",1,0,"Current smoker",5.6,2,125,82,27,16.5,29.6,0.5,42,0
+"Male",0,0,"Former smoker",5.5,0,118,75,29,15.9,25.7,0.7,44,0
