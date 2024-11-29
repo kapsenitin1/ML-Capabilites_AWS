@@ -1,0 +1,41 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "diabetic-prediction-api",
+    "version" : "2024-11-28T12:19:50Z"
+  },
+  "servers" : [ {
+    "url" : "https://wqtvfbwi19.execute-api.us-east-2.amazonaws.com/{basePath}",
+    "variables" : {
+      "basePath" : {
+        "default" : "Dev"
+      }
+    }
+  } ],
+  "paths" : {
+    "/" : {
+      "post" : {
+        "responses" : {
+          "200" : {
+            "description" : "200 response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Empty"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Empty" : {
+        "title" : "Empty Schema",
+        "type" : "object"
+      }
+    }
+  }
+}

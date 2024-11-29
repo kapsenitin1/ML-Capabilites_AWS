@@ -1,0 +1,378 @@
+{
+	"jobConfig": {
+		"name": "diagnosis_populate",
+		"description": "",
+		"role": "arn:aws:iam::241533149150:role/GlueRole",
+		"command": "glueetl",
+		"version": "4.0",
+		"runtime": null,
+		"workerType": "G.1X",
+		"numberOfWorkers": 10,
+		"maxCapacity": 10,
+		"jobRunQueuingEnabled": false,
+		"maxRetries": 0,
+		"timeout": 2880,
+		"maxConcurrentRuns": 1,
+		"security": "none",
+		"scriptName": "diagnosis_populate.py",
+		"scriptLocation": "s3://aws-glue-assets-241533149150-us-east-2/scripts/",
+		"language": "python-3",
+		"spark": true,
+		"sparkConfiguration": "standard",
+		"jobParameters": [],
+		"tags": [],
+		"jobMode": "VISUAL_MODE",
+		"createdOn": "2024-11-27T10:41:38.199Z",
+		"developerMode": false,
+		"connectionsList": [
+			"Aurora_Healthcare"
+		],
+		"temporaryDirectory": "s3://aws-glue-assets-241533149150-us-east-2/temporary/",
+		"logging": true,
+		"glueHiveMetastore": true,
+		"etlAutoTuning": true,
+		"metrics": true,
+		"observabilityMetrics": true,
+		"bookmark": "job-bookmark-disable",
+		"sparkPath": "s3://aws-glue-assets-241533149150-us-east-2/sparkHistoryLogs/",
+		"flexExecution": false,
+		"minFlexWorkers": null,
+		"sourceControlDetails": {
+			"Provider": "GITHUB",
+			"Repository": "",
+			"Branch": ""
+		},
+		"maintenanceWindow": null
+	},
+	"dag": {
+		"node-1732703477279": {
+			"nodeId": "node-1732703477279",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "s3_diagnosis",
+			"generatedNodeName": "s3_diagnosis_node1732703477279",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "healthcare",
+			"table": "diagnosis",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		},
+		"node-1732703754281": {
+			"nodeId": "node-1732703754281",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "s3_general_body_test",
+			"generatedNodeName": "s3_general_body_test_node1732703754281",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "healthcare",
+			"table": "generalbodytest",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		},
+		"node-1732703814174": {
+			"nodeId": "node-1732703814174",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "s3_patient",
+			"generatedNodeName": "s3_patient_node1732703814174",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "healthcare",
+			"table": "patient",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		},
+		"node-1732703859405": {
+			"nodeId": "node-1732703859405",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "s3_patient_lab_test",
+			"generatedNodeName": "s3_patient_lab_test_node1732703859405",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "healthcare",
+			"table": "patientlabtest",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		},
+		"node-1732709806399": {
+			"nodeId": "node-1732709806399",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1732703925673"
+			],
+			"name": "AWS Glue Data Catalog",
+			"generatedNodeName": "AWSGlueDataCatalog_node1732709806399",
+			"classification": "DataSink",
+			"type": "Catalog",
+			"streamingBatchInterval": 100,
+			"database": "aroradb",
+			"table": "healthcare_diabetes_prediction",
+			"format": "json",
+			"partitionKeys": [],
+			"calculatedType": "",
+			"updateCatalogOptions": "none",
+			"runtimeParameters": [],
+			"codeGenVersion": 2,
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": false
+			}
+		},
+		"node-1732702914441": {
+			"nodeId": "node-1732702914441",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "s3_blood_test",
+			"generatedNodeName": "s3_blood_test_node1732702914441",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "healthcare",
+			"table": "bloodtest",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		},
+		"node-1732703925673": {
+			"nodeId": "node-1732703925673",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1732703859405",
+				"node-1732702914441",
+				"node-1732703477279",
+				"node-1732703754281",
+				"node-1732703789277",
+				"node-1732703814174"
+			],
+			"name": "SQL Query",
+			"generatedNodeName": "SQLQuery_node1732703925673",
+			"classification": "Transform",
+			"type": "SqlCode",
+			"sqlAliases": [
+				{
+					"from": "node-1732703859405",
+					"alias": "patientlabtest"
+				},
+				{
+					"from": "node-1732702914441",
+					"alias": "bloodtest"
+				},
+				{
+					"from": "node-1732703477279",
+					"alias": "diagnosis"
+				},
+				{
+					"from": "node-1732703754281",
+					"alias": "generalbodytest"
+				},
+				{
+					"from": "node-1732703789277",
+					"alias": "hearttest"
+				},
+				{
+					"from": "node-1732703814174",
+					"alias": "patient"
+				}
+			],
+			"outputSchemas": [
+				[
+					{
+						"key": "gender",
+						"fullPath": [
+							"gender"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "hypertension",
+						"fullPath": [
+							"hypertension"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "heart_disease",
+						"fullPath": [
+							"heart_disease"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "smoking_history",
+						"fullPath": [
+							"smoking_history"
+						],
+						"type": "string",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "hbA1c_level",
+						"fullPath": [
+							"hbA1c_level"
+						],
+						"type": "double",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "pregnancies",
+						"fullPath": [
+							"pregnancies"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "glucose",
+						"fullPath": [
+							"glucose"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "blood_pressure",
+						"fullPath": [
+							"blood_pressure"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "skin_thickness",
+						"fullPath": [
+							"skin_thickness"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "insulin",
+						"fullPath": [
+							"insulin"
+						],
+						"type": "double",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "bmi",
+						"fullPath": [
+							"bmi"
+						],
+						"type": "double",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "diabetes_pedigree_function",
+						"fullPath": [
+							"diabetes_pedigree_function"
+						],
+						"type": "double",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "age",
+						"fullPath": [
+							"age"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					},
+					{
+						"key": "is_diabetic",
+						"fullPath": [
+							"is_diabetic"
+						],
+						"type": "bigint",
+						"glueStudioType": null,
+						"children": null
+					}
+				]
+			],
+			"parentsValid": true,
+			"calculatedType": "",
+			"sqlQuery": "select \npatient.gender,\ngeneralbodytest.hypertension,\t\nhearttest.heart_disease,\t\ngeneralbodytest.smoking_history,\t\nbloodtest.hbA1c_level,\t\ngeneralbodytest.pregnancies,\t\nbloodtest.glucose,\t\nhearttest.blood_pressure,\t\ngeneralbodytest.skin_thickness,\t\nbloodtest.insulin,\t\ngeneralbodytest.bmi,\t\ngeneralbodytest.diabetes_pedigree_function,\t\nFLOOR(DATEDIFF(CURRENT_DATE(), TO_DATE(patient.date_of_birth, 'dd-MM-yyyy')) / 365) AS age,\ndiagnosis.is_diabetic\nfrom patient\nleft join patientlabtest on patient.patient_id=patientlabtest.patient_id\nleft join hearttest on hearttest.patient_id=patient.patient_id and patientlabtest.heart_test_id=hearttest.heart_test_id\t\nleft join bloodtest on bloodtest.patient_id=patient.patient_id and patientlabtest.blood_test_id=bloodtest.blood_test_id\nleft join generalbodytest on generalbodytest.patient_id=patient.patient_id and patientlabtest.general_body_test_id=generalbodytest.general_body_test_id\nleft join diagnosis on diagnosis.patient_id=patient.patient_id;",
+			"codeGenVersion": 2
+		},
+		"node-1732703789277": {
+			"nodeId": "node-1732703789277",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "s3_heart_test",
+			"generatedNodeName": "s3_heart_test_node1732703789277",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "healthcare",
+			"table": "hearttest",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		},
+		"node-1732706915175": {
+			"nodeId": "node-1732706915175",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1732703925673"
+			],
+			"name": "output_diagnosis_prediction",
+			"generatedNodeName": "output_diagnosis_prediction_node1732706915175",
+			"classification": "DataSink",
+			"type": "S3",
+			"streamingBatchInterval": 100,
+			"format": "csv",
+			"compression": "none",
+			"path": "s3://laboratory-diagnostics-data/OutputData/diabeticprediction/",
+			"partitionKeys": [],
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": false,
+				"updateBehavior": null,
+				"database": null,
+				"table": null
+			},
+			"updateCatalogOptions": "none",
+			"autoDataQuality": {
+				"isEnabled": false,
+				"evaluationContext": null
+			},
+			"calculatedType": "",
+			"codeGenVersion": 2
+		}
+	},
+	"hasBeenSaved": false,
+	"usageProfileName": null
+}

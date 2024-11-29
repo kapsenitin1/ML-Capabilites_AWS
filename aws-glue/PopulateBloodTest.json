@@ -1,0 +1,86 @@
+{
+	"jobConfig": {
+		"name": "PopulateBloodTest",
+		"description": "",
+		"role": "arn:aws:iam::241533149150:role/GlueRole",
+		"command": "glueetl",
+		"version": "3.0",
+		"runtime": null,
+		"workerType": "G.1X",
+		"numberOfWorkers": 10,
+		"maxCapacity": 10,
+		"jobRunQueuingEnabled": false,
+		"maxRetries": 0,
+		"timeout": 30,
+		"maxConcurrentRuns": 1,
+		"security": "none",
+		"scriptName": "PopulateBloodTest.py",
+		"scriptLocation": "s3://aws-glue-assets-241533149150-us-east-2/scripts/",
+		"language": "python-3",
+		"spark": true,
+		"sparkConfiguration": "standard",
+		"jobParameters": [],
+		"tags": [],
+		"jobMode": "VISUAL_MODE",
+		"createdOn": "2024-11-27T10:08:13.322Z",
+		"developerMode": false,
+		"connectionsList": [
+			"Aurora_Healthcare"
+		],
+		"temporaryDirectory": "s3://aws-glue-assets-241533149150-us-east-2/temporary/",
+		"logging": true,
+		"glueHiveMetastore": true,
+		"etlAutoTuning": true,
+		"metrics": true,
+		"observabilityMetrics": true,
+		"bookmark": "job-bookmark-disable",
+		"sparkPath": "s3://aws-glue-assets-241533149150-us-east-2/sparkHistoryLogs/",
+		"flexExecution": false,
+		"minFlexWorkers": null,
+		"maintenanceWindow": null
+	},
+	"dag": {
+		"node-1732696929373": {
+			"nodeId": "node-1732696929373",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [
+				"node-1732696342624"
+			],
+			"name": "Arora_Blood_Test_Insert",
+			"generatedNodeName": "Arora_Blood_Test_Insert_node1732696929373",
+			"classification": "DataSink",
+			"type": "Catalog",
+			"streamingBatchInterval": 100,
+			"database": "aroradb",
+			"table": "healthcare_blood_test",
+			"format": "json",
+			"partitionKeys": [],
+			"calculatedType": "",
+			"updateCatalogOptions": "none",
+			"runtimeParameters": [],
+			"codeGenVersion": 2,
+			"schemaChangePolicy": {
+				"enableUpdateCatalog": false
+			}
+		},
+		"node-1732696342624": {
+			"nodeId": "node-1732696342624",
+			"dataPreview": false,
+			"previewAmount": 0,
+			"inputs": [],
+			"name": "s3_Blood_Test",
+			"generatedNodeName": "s3_Blood_Test_node1732696342624",
+			"classification": "DataSource",
+			"type": "Catalog",
+			"isCatalog": true,
+			"database": "healthcare",
+			"table": "bloodtest",
+			"calculatedType": "",
+			"runtimeParameters": [],
+			"codeGenVersion": 2
+		}
+	},
+	"hasBeenSaved": false,
+	"usageProfileName": null
+}
