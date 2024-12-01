@@ -1,4 +1,4 @@
-patient_labtest_id,patient_id,heart_test_id,blood_test_id,
+patient_labtest_id,patient_id,heart_test_id,blood_test_id,general_body_test_id
 1,1,1,1,1
 2,2,2,2,2
 3,3,3,3,3
